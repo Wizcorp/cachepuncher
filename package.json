@@ -1,7 +1,7 @@
 {
   "name": "cachepuncher",
   "version": "0.1.0",
-  "description": "punch caches right in the cache",
+  "description": "Punch browser caching right in the cache",
   "main": "index.js",
   "directories": {
     "test": "test"
