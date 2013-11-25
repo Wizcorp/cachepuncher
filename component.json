@@ -1,0 +1,14 @@
+{
+  "name": "cachepuncher",
+  "repo": "wizcorp/cachepuncher",
+  "description": "Punch browser caching straight in the cache!",
+  "version": "0.1.0",
+  "keywords": ["browser", "cache"],
+  "dependencies": {},
+  "development": {},
+  "license": "MIT",
+  "main": "index.js",
+  "scripts": [
+    "index.js"
+  ]
+}
