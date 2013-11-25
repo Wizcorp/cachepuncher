@@ -46,6 +46,10 @@ Puncher.prototype.punch = function (options) {
 		out -= options.epoch.getTime();
 	}
 
+	if (precision === 'sec') {
+		out = Math.floor(out / 1000);
+	}
+
 	if (typeof options.base === 'number') {
 		out = out.toString(options.base);
 	}
