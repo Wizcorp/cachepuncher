@@ -1,0 +1,24 @@
+{
+  "name": "cachepuncher",
+  "version": "0.1.0",
+  "description": "punch caches right in the cache",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/mocha"
+  },
+  "repository": "",
+  "author": "Wizcorp, Inc. <info@wizcorp.jp>",
+  "maintainers": [
+    {
+      "name": "Ron Korving",
+      "email": "rkorving@wizcorp.jp"
+    }
+  ],
+  "license": "MIT",
+  "devDependencies": {
+    "mocha": "~1.14.0"
+  }
+}
