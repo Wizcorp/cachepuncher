@@ -4,7 +4,7 @@ Punch browser caching straight in the cache!
 
 ![Cockpuncher (the Onion Movie)](./cockpuncher.jpg)
 
-Don't you just hate browsers that cache overly aggressively. Yes, I'm looking at you Chrome and
+Don't you just hate browsers that cache overly aggressively? Yes, I'm looking at you Chrome and
 Mobile Safari, you rule breaking maniacs. It's time for the cache puncher!
 
 This tiny piece of software will generate a unique time-based code that you can inject into your
@@ -28,16 +28,17 @@ for each generated code.
 
 ## API
 
-A cache puncher instance has only 1 function that will keep generating unique codes: `punch`.
+A cache puncher instance has only one function that will keep generating unique codes: `punch`.
 
 ### Simple example
 
 Example:
 
 ```js
-var puncher = require('cockpuncher');
+var punch = require('cochepuncher').punch;
 
-var code = puncher.punch();
+var image = new Image();
+image.src = 'http://example.com/punch.jpg?rand=' + punch();
 ```
 
 ### Arguments
@@ -66,7 +67,7 @@ with default settings for the punch function.
 Example:
 
 ```js
-var puncher = require('cockpuncher');
+var puncher = require('cachepuncher');
 var punch = puncher.create({ base: 36 });  // output in base 36 by default
 
 var image = new Image();
