@@ -2,6 +2,19 @@ var puncher = require('../index.js');
 assert = require('assert');
 
 
+function parse(code) {
+	var m = code.match(/^([0-9a-z]+)-([0-9]+)$/);
+	if (!m) {
+		throw new Error('Code is not valid: ' + code);
+	}
+
+	return {
+		time: m[1],
+		bump: parseInt(m[2], 10)
+	};
+}
+
+
 describe('puncher', function () {
 	it('Should expose a default puncher', function () {
 		assert.strictEqual('string', typeof puncher.punch({ msec: true, base: 2 }));
@@ -33,16 +46,28 @@ describe('puncher', function () {
 		assert.strictEqual(true, !!puncher.punch().match(/^[0-9]+-[0-9]+$/));
 	});
 
+	it('Should reset the bump if the seconds changed', function (done) {
+		var punch = puncher.create();
+
+		punch({ msec: true });
+		parse(punch());
+
+		setTimeout(function () {
+			punch({ msec: true });
+			var code = parse(punch());
+
+			assert.strictEqual(1, code.bump);
+			done();
+		}, 1000);
+	});
+
 	it('Should output seconds when not passing msec: true', function () {
 		var before = Math.floor(Date.now() / 1000);
 		var out = puncher.punch();
 		var after = Math.floor(Date.now() / 1000);
-		var ts;
 
-		var m = out.match(/^([0-9]+)-[0-9]+$/);
-		if (m) {
-			ts = parseInt(m[1], 10);
-		}
+		var code = parse(out);
+		var ts = parseInt(code.time, 10);
 
 		assert.ok(ts);
 		assert.strictEqual(true, ts >= before);
@@ -53,14 +78,10 @@ describe('puncher', function () {
 		var before = Date.now();
 		var out = puncher.punch({ msec: true });
 		var after = Date.now();
-		var ts;
 
-		var m = out.match(/^([0-9]+)-[0-9]+$/);
-		if (m) {
-			ts = parseInt(m[1], 10);
-		}
+		var code = parse(out);
+		var ts = parseInt(code.time, 10);
 
-		assert.ok(ts);
 		assert.strictEqual(true, ts >= before);
 		assert.strictEqual(true, ts <= after);
 	});

@@ -1,9 +1,37 @@
+// State carries the time and bump state at a particular precision level
+
+function State(factor) {
+	this.factor = factor || 1;
+	this.bump = 0;
+	this.time = null;
+}
+
+
+State.prototype.setTime = function (ts) {
+	var collides = false;
+
+	if (this.time) {
+		collides = Math.floor(ts * this.factor) === Math.floor(this.time * this.factor);
+	}
+
+	this.time = ts;
+
+	if (collides) {
+		this.bump += 1;
+	} else {
+		this.bump = 1;
+	}
+};
+
+
+// The Puncher class exposes the punch method and carries multiple precision states
+
 function Puncher(defaults) {
 	this.defaults = defaults;
-	this.lastTime = null;
-	this.bumps = {
-		sec: 0,
-		msec: 0
+
+	this.states = {
+		sec: new State(0.001),
+		msec: new State()
 	};
 }
 
@@ -21,24 +49,18 @@ Puncher.prototype.punch = function (options) {
 		options = this.defaults || {};
 	}
 
-	var precision = options.msec ? 'msec' : 'sec';
-	var bump;
+	// pick a state based on our precision
+
+	var state = options.msec ? this.states.msec : this.states.sec;
+
+	// assign the current time to the state
 
 	var now = options.now || new Date();
 	var ts = now.getTime();
 
-	var collision =
-		precision === 'msec' ?
-		this.lastTime === ts :
-		Math.floor(this.lastTime / 1000) === Math.floor(ts / 1000);
+	state.setTime(ts);
 
-	this.lastTime = ts;
-
-	if (collision) {
-		bump = this.bumps[precision] += 1;
-	} else {
-		bump = this.bumps[precision] = 1;
-	}
+	// generate an output string
 
 	var out = ts;
 
@@ -46,7 +68,7 @@ Puncher.prototype.punch = function (options) {
 		out -= options.epoch.getTime();
 	}
 
-	if (precision === 'sec') {
+	if (!options.msec) {
 		out = Math.floor(out / 1000);
 	}
 
@@ -54,11 +76,13 @@ Puncher.prototype.punch = function (options) {
 		out = out.toString(options.base);
 	}
 
-	out += '-' + bump;
+	out += '-' + state.bump;
 
 	return out;
 };
 
+
+// Expose the default punch method
 
 var defaultPuncher = new Puncher();
 
@@ -66,6 +90,8 @@ exports.punch = function (options) {
 	return defaultPuncher.punch(options);
 };
 
+
+// A factory for new cache punchers
 
 exports.create = function (defaults) {
 	var puncher = new Puncher(defaults);
