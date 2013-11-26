@@ -35,7 +35,7 @@ A cache puncher instance has only one function that will keep generating unique 
 Example:
 
 ```js
-var punch = require('cochepuncher').punch;
+var punch = require('cachepuncher').punch;
 
 var image = new Image();
 image.src = 'http://example.com/punch.jpg?rand=' + punch();
@@ -46,7 +46,7 @@ image.src = 'http://example.com/punch.jpg?rand=' + punch();
 The `punch` function takes arguments:
 
 ```js
-var code = puncher.punch({
+var code = punch({
 	msec: true,
 	base: 16,
 	epoch: new Date(2013, 0, 1, 0, 0, 0)
