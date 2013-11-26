@@ -67,10 +67,9 @@ Puncher.prototype.punchMe = function (source, options) {
 			queryVar = options.queryVar;
 		}
 	}
-	var url = require('url');
-	var parsedURL = url.parse(source);
-	// .query returns null if the query string does not exist
-	if (parsedURL.query != null) {
+	
+	// Check for a query string
+	if (source.match(/\?/)) {
 		// Query string exists
 		return source + '&' + queryVar + '=' + this.punch(options);
 	} else {
