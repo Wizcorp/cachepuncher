@@ -2,7 +2,7 @@
   "name": "cachepuncher",
   "repo": "Wizcorp/cachepuncher",
   "description": "Punch browser caching straight in the cache!",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "keywords": ["browser", "cache"],
   "dependencies": {},
   "development": {},
