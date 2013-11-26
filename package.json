@@ -1,6 +1,6 @@
 {
   "name": "cachepuncher",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Punch browser caching right in the cache",
   "main": "index.js",
   "directories": {
@@ -9,7 +9,7 @@
   "scripts": {
     "test": "./node_modules/.bin/mocha"
   },
-  "repository": "",
+  "repository": "git://github.com/Wizcorp/cachepuncher.git",
   "author": "Wizcorp, Inc. <info@wizcorp.jp>",
   "maintainers": [
     {
