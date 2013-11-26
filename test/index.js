@@ -30,7 +30,7 @@ describe('puncher', function () {
 	it('Should always contain a bump', function () {
 		var punch = puncher.create();
 
-		assert.strictEqual(true, !!puncher.punch().match(/^[0-9]+-[0-9]+$/));
+		assert.strictEqual(true, !!punch().match(/^[0-9]+-[0-9]+$/));
 	});
 
 	it('Should output seconds when not passing msec: true', function () {
