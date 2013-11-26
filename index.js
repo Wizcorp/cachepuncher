@@ -1,4 +1,4 @@
-// State carries the time and bump state at a particular precision level
+// State carries the time and bump state at a particular precision (factor)
 
 function State(factor) {
 	this.factor = factor || 1;
@@ -11,6 +11,8 @@ State.prototype.setTime = function (ts) {
 	var collides = false;
 
 	if (this.time) {
+		// apply the factor and compare the timestamps for collisions
+
 		collides = Math.floor(ts * this.factor) === Math.floor(this.time * this.factor);
 	}
 
