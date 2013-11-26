@@ -5,6 +5,7 @@ function Puncher(defaults) {
 		sec: 0,
 		msec: 0
 	};
+	this.queryVar = 'rand';
 }
 
 
@@ -59,6 +60,25 @@ Puncher.prototype.punch = function (options) {
 	return out;
 };
 
+Puncher.prototype.punchMe = function (source, options) {
+	var queryVar = this.queryVar;
+	if (options) {
+		if (options.queryVar) {
+			queryVar = options.queryVar;
+		}
+	}
+	var url = require('url');
+	var parsedURL = url.parse(source);
+	// .query returns null if the query string does not exist
+	if (parsedURL.query != null) {
+		// Query string exists
+		return source + '&' + queryVar + '=' + this.punch(options);
+	} else {
+		// No query string exists
+		return source + '?' + queryVar + '=' + this.punch(options);
+	}
+};
+
 
 var defaultPuncher = new Puncher();
 
@@ -66,6 +86,9 @@ exports.punch = function (options) {
 	return defaultPuncher.punch(options);
 };
 
+exports.punchMe = function (source, options) {
+	return defaultPuncher.punchMe(source, options);
+};
 
 exports.create = function (defaults) {
 	var puncher = new Puncher(defaults);
@@ -74,4 +97,3 @@ exports.create = function (defaults) {
 		return puncher.punch(options);
 	};
 };
-

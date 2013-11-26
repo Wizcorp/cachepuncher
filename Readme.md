@@ -41,9 +41,18 @@ var image = new Image();
 image.src = 'http://example.com/punch.jpg?rand=' + punch();
 ```
 
+or
+
+```js
+var punch = require('cachepuncher').punchMe;
+
+var image = new Image();
+image.src = punchMe('http://example.com/punch.jpg');
+```
+
 ### Arguments
 
-The `punch` function takes arguments:
+The `punch` and `punchMe` functions take arguments:
 
 ```js
 var code = punch({
@@ -53,7 +62,15 @@ var code = punch({
 });
 ```
 
-| option | type    | default    | meaning |
+```js
+var puchedURL = punchMe('http://example.com/punch.jpg', {
+	msec: true,
+	base: 16,
+	epoch: new Date(2013, 0, 1, 0, 0, 0)
+});
+```
+
+| Option | Type    | Default    | Meaning |
 |--------|---------|------------|---------|
 | msec   | boolean | false      | Output milliseconds. Useful (but not required) if you need many codes per second. |
 | base   | number  | 10         | Output the code in base-N, eg 16 for hex. Must be between 2 and 36. |
