@@ -1,6 +1,6 @@
 {
   "name": "cachepuncher",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Punch browser caching right in the cache",
   "main": "index.js",
   "directories": {
@@ -19,6 +19,6 @@
   ],
   "license": "MIT",
   "devDependencies": {
-    "mocha": "~1.14.0"
+    "mocha": "~2.0.1"
   }
 }
