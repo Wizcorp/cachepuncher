@@ -1,0 +1,21 @@
+{
+  "name": "cachepuncher",
+  "main": "index.js",
+  "version": "0.1.3",
+  "homepage": "https://github.com/Wizcorp/cachepuncher",
+  "description": "Punch browser caching straight in the cache!",
+  "moduleType": [
+    "node"
+  ],
+  "keywords": [
+    "browser",
+    "cache"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test"
+  ]
+}
