@@ -14,6 +14,10 @@ the code if you care a lot about saving a few extra precious bytes.
 
 ## Installation
 
+Install with NPM:
+
+	$ npm install cachepuncher
+
 Install with [component(1)](http://component.io):
 
 	$ component install wizcorp/cachepuncher
