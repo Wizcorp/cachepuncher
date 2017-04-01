@@ -35,6 +35,7 @@ function Puncher(defaults) {
 		sec: new State(0.001),
 		msec: new State()
 	};
+	this.queryVar = 'rand';
 }
 
 
@@ -83,6 +84,24 @@ Puncher.prototype.punch = function (options) {
 	return out;
 };
 
+Puncher.prototype.punchMe = function (source, options) {
+	var queryVar = this.queryVar;
+	if (options) {
+		if (options.queryVar) {
+			queryVar = options.queryVar;
+		}
+	}
+	
+	// Check for a query string
+	if (source.match(/\?/)) {
+		// Query string exists
+		return source + '&' + queryVar + '=' + this.punch(options);
+	} else {
+		// No query string exists
+		return source + '?' + queryVar + '=' + this.punch(options);
+	}
+};
+
 
 // Expose the default punch method
 
@@ -92,6 +111,9 @@ exports.punch = function (options) {
 	return defaultPuncher.punch(options);
 };
 
+exports.punchMe = function (source, options) {
+	return defaultPuncher.punchMe(source, options);
+};
 
 // A factory for new cache punchers
 
@@ -102,4 +124,3 @@ exports.create = function (defaults) {
 		return puncher.punch(options);
 	};
 };
-

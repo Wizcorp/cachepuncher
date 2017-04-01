@@ -16,8 +16,12 @@ function parse(code) {
 
 
 describe('puncher', function () {
-	it('Should expose a default puncher', function () {
+	it('Should expose a default puncher with punch', function () {
 		assert.strictEqual('string', typeof puncher.punch({ msec: true, base: 2 }));
+	});
+	
+	it('Should expose a default puncher with punchMe', function () {
+		assert.strictEqual('string', typeof puncher.punchMe('http://www.example.com/punch.jpg', { msec: true, base: 2 }));
 	});
 
 	it('Should expose a creator function', function () {
@@ -44,6 +48,24 @@ describe('puncher', function () {
 		var punch = puncher.create();
 
 		assert.strictEqual(true, !!punch().match(/^[0-9]+-[0-9]+$/));
+	});
+	
+	it('Should choose the correct query string concatenation when no query string', function () {
+		var punchedURL = puncher.punchMe('http://www.example.com/punch.jpg');
+		
+		assert.strictEqual(true, !!punchedURL.match(/\?rand=/));
+	});
+	
+	it('Should choose the correct query string concatenation when query string present', function () {
+		var punchedURL = puncher.punchMe('http://www.example.com/punch.jpg?size=300');
+		
+		assert.strictEqual(true, !!punchedURL.match(/\&rand=/));
+	});
+	
+	it('Should be able to override the query variable', function () {
+		var punchedURL = puncher.punchMe('http://www.example.com/punch.jpg?size=300', { queryVar: 'noCache'});
+
+		assert.strictEqual(true, !!punchedURL.match(/\&noCache=/));
 	});
 
 	it('Should reset the bump if the seconds changed', function (done) {
